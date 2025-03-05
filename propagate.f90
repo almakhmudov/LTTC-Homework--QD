@@ -10,6 +10,15 @@
    real(8) :: angfreq, barrier
    character(10) :: potentialtype
 
+   interface
+      subroutine initpsi(npoints, dx, alpha, x0, coeff, psi0, mass, angfreq, pi)
+         integer, intent(in) :: npoints
+         real(8), intent(in) :: dx, alpha, x0, mass, angfreq, pi
+         real(8), intent(in) :: coeff(:)
+         complex(8), intent(out) :: psi0(npoints)
+      end subroutine initpsi
+   end interface
+
  end module parameters
 !---------------------!
    
@@ -52,7 +61,7 @@
 
    dx = length / dble(npoints)
 
-   call initpsi(npoints, dx, alpha, x0, coeff, psi0)  ! Obtain initial wavepacket psi0
+   call initpsi(npoints, dx, alpha, x0, coeff, psi0, mass, angfreq, pi)  ! Obtain initial wavepacket psi0
    call fourier(0, npoints, psi0)                     ! Initialize the FFT
    call operators(npoints, dx, dt, pot, kin, exppot, expkin) ! Calculate the kinetic and potential operators
 
@@ -82,18 +91,18 @@
 !---------------------!
    
 !------------------------------------------------!
- subroutine initpsi(npoints, dx, alpha, x0, coeff, psi0)
+ subroutine initpsi(npoints, dx, alpha, x0, coeff, psi0, mass, angfreq, pi)
 !------------------------------------------------!
    implicit none
 
    integer :: i, j, npoints, n, nmax
-   real(8) :: alpha, x, x0, dx, norm, fact
-   real(8) :: coeff(5)
+   real(8) :: alpha, x, x0, dx, norm, fact, mass, angfreq, pi
+   real(8) :: coeff(:)
    complex(8) :: psi0(npoints)
    real(8) :: hermite
 
    norm = 0.0d0
-   nmax = 4
+   nmax = size(coeff) - 1
    do i = -npoints/2 + 1, npoints/2
       x = dble(i) * dx
       if (i > 0) then
@@ -104,7 +113,8 @@
       psi0(j) = 0.0d0
       do n = 0, nmax
          call factorial(n, fact)
-         psi0(j) = psi0(j) + coeff(n+1) * (1.d0 / sqrt(2.0**n * fact)) * exp(-alpha * x**2) * hermite(n, x)
+         psi0(j) = psi0(j) + coeff(n+1) * (1.d0 / sqrt(2.0**n * fact)) * (mass * angfreq / pi)**0.25 * &
+                   exp(-mass * angfreq * alpha * (x-x0)**2 / 2) * hermite(n, (x-x0) * sqrt(mass * angfreq)) 
       end do
       norm = norm + abs(psi0(j))**2 * dx
    end do
