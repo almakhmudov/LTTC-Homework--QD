@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{amsmath}
+
+% for tables
+\usepackage{array}
+\usepackage{booktabs}
+
+% package that forces LaTeX to place an image in the exact position as it determied in the code
+\usepackage{float} 
+
+% for a rectangular box
+\usepackage[most]{tcolorbox}
+
+% package for multiple columns
+\usepackage{multicol}
+\setlength{\columnsep}{0.8cm} % separation between columns
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+% small font size in the captions
+\usepackage[font=small]{caption}
+
+% header
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.0pt}
+\usepackage{ifthen}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\ifthenelse{\value{page}=1}{}{Lessons \& Tutorials in Theoretical Chemistry}}
+\fancyhead[R]{\ifthenelse{\value{page}=1}{}{Homework}}
+\fancyfoot[C]{\thepage}
+
+% bibliography
+\usepackage[numbers]{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+\renewcommand{\bibfont}{\small} % small font in the bibliography
+
+% For DOIs in references
+\usepackage{doi}
+\renewcommand{\doitext}{DOI: }
+
+
+\title{Quantum Dynamics - Homework}
+\author{Albert Makhmudov}
+\date{14/03/2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Data Availability}
+
+\section*{Code Overview}
+
+% \begin{figure}[t!]
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{deepmd.jpg}
+%     \caption{The architecture of the \texttt{DeePMD} neural network potential. This figure has been reproduced from \citep{deepmd2024gomez}.}
+%     {\color{gray}\rule{\linewidth}{0.1mm}}
+%     \label{fig:deepmd}
+% \end{figure}
+
+\section*{Results and Discussion}
+
+% \begin{figure}[t!]
+%     \centering
+%     \includegraphics[width=1.0\textwidth]{forces_correlation_plot.png}
+%     \caption{Correlation between predicted and reference forces. The predictions were obtained from the NNPs trained on 500 configurations but with different number of iterations, e.g. \textbf{(A)} 500, \textbf{(B)} 50000, \textbf{(C)} 600000.}
+%     {\color{gray}\rule{\linewidth}{0.1mm}}
+%     \label{fig:forces_correlation}
+% \end{figure} 
+
+\section*{Generative AI Usage}
+In this work, \href{https://chatgpt.com}{ChatGPT} large language model was used to check grammar and spelling of the main body of text, whilst \href{https://www.perplexity.ai}{Perplexity} was utilized for the sake of literature search.
+
+\bibliography{references}
+
+\end{document}
