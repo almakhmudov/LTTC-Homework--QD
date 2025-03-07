@@ -23,6 +23,9 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 
+% For rotating figures, tables, etc. including their captions
+\usepackage{rotating}
+
 % small font size in the captions
 \usepackage[font=small]{caption}
 
@@ -56,6 +59,7 @@
 \maketitle
 
 \section*{Data Availability}
+The source code of this project as well as the example input files are available at the corresponding \href{https://github.com/almakhmudov/LTTC-Homework--QD}{Github page}. There one could also find the example output files and the detailed instructions on how to run and compile the code. The example output files are \texttt{gif} animations of the wavepacket propagation that complement the results in \autoref{fig:snapshots}.
 
 \section*{Code Overview}
 
@@ -66,6 +70,12 @@
 %     {\color{gray}\rule{\linewidth}{0.1mm}}
 %     \label{fig:deepmd}
 % \end{figure}
+
+\begin{sidewaysfigure}[ht]
+    \includegraphics[width=\textwidth]{snapshots.pdf}
+    \caption{Time evolution of the wavepackets with different number of eigenstates. The wavepackets were propagated using the \textbf{(A)} $[1, 0, 0, 0, 0]$, \textbf{(B)} $[0, 1, 0, 1, 0]$, \textbf{(C)} $[1, 0, 1, 0, 1]$, and \textbf{(D)} $[1, 1, 1, 1, 1]$ coefficients.}
+    \label{fig:snapshots}
+\end{sidewaysfigure}
 
 \section*{Results and Discussion}
 
@@ -79,6 +89,9 @@
 
 \section*{Generative AI Usage}
 In this work, \href{https://chatgpt.com}{ChatGPT} large language model was used to check grammar and spelling of the main body of text, whilst \href{https://www.perplexity.ai}{Perplexity} was utilized for the sake of literature search.
+
+\section*{Acknowledgments}
+This project is based on data and instructions provided by Arjan Berger available at the aforementioned \href{https://github.com/almakhmudov/LTTC-Homework--QD}{Github page}.
 
 \bibliography{references}
 
