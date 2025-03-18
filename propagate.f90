@@ -10,11 +10,11 @@
    real(8) :: angfreq, barrier
    character(10) :: potentialtype
 
-   interface
+   interface                                                                ! Interface to the initpsi routine to handle ...
       subroutine initpsi(npoints, dx, alpha, x0, coeff, psi0, mass, angfreq, pi)
          integer, intent(in) :: npoints
          real(8), intent(in) :: dx, alpha, x0, mass, angfreq, pi
-         real(8), intent(in) :: coeff(:)
+         real(8), intent(in) :: coeff(:)                                    ! ... an assumed-shape array coeff(:)
          complex(8), intent(out) :: psi0(npoints)
       end subroutine initpsi
    end interface
@@ -55,15 +55,15 @@
    dt = dt * fs2au                                                          ! Convert femtoseconds to atomic units
    angfreq = angfreq / fs2au                                                ! Convert femtoseconds to atomic units
 
-   allocate(psi(npoints), psi0(npoints))                                    ! Allocate memory for wavepacket psi
-   allocate(pot(npoints), exppot(npoints))                                  ! Allocate memory for potential and its exponential
-   allocate(kin(npoints), expkin(npoints))                                  ! Allocate memory for kinetic and its exponential
-   allocate(psisquare(npoints))                                             ! Allocate memory for psi squared
+   allocate(psi(npoints), psi0(npoints))                                    ! Allocate memory for wavepacket psi, ...
+   allocate(pot(npoints), exppot(npoints))                                  ! ... potential and its exponential, ...
+   allocate(kin(npoints), expkin(npoints))                                  ! ... kinetic and its exponential, ...
+   allocate(psisquare(npoints))                                             ! ... and psi squared
 
-   dx = length / dble(npoints)
+   dx = length / dble(npoints)                                              ! Calculate the lattice spacing
 
-   call initpsi(npoints, dx, alpha, x0, coeff, psi0, mass, angfreq, pi)     ! Obtain initial wavepacket psi0
-   call fourier(0, npoints, psi0)                                           ! Initialize the FFT
+   call initpsi(npoints, dx, alpha, x0, coeff, psi0, mass, angfreq, pi)     ! Obtain the initial wavepacket psi0
+   call fourier(0, npoints, psi0)                                           ! Initialise the FFT
    call operators(npoints, dx, dt, pot, kin, exppot, expkin)                ! Calculate the kinetic and potential operators
 
    psi = psi0                                                               ! Set the wavepacket psi at t=0 equal psi0
@@ -76,7 +76,7 @@
          call fourier(-1, npoints, psi)                                     ! Backward FFT to position space
       endif
       if (mod(i, snapshot) == 0) then                                       ! Take a snapshot if i/snapshot remainder is 0
-         call initgraph(i / snapshot, t)                                    ! Initialize graph
+         call initgraph(i / snapshot, t)                                    ! Initialise graph
          psisquare = (abs(psi))**2
          call graphpot(dx, npoints)                                         ! Plot the potential
          call graphpsi(dx, npoints, psisquare)                              ! Plot |psi|^2
@@ -103,7 +103,7 @@
 
    norm = 0.0d0                                                             ! Initialise the norm
    nmax = size(coeff) - 1                                                   ! The max order of the Hermite polynomial
-   do i = -npoints/2 + 1, npoints/2                                         ! Loop over all lattice points to get the initial wavepacket
+   do i = -npoints/2 + 1, npoints/2                                         ! Loop over all lattice points
       x = dble(i) * dx
       if (i > 0) then
          j = i
@@ -146,7 +146,7 @@
    integer :: i
 
    result = 1.0d0
-   do i = 1, n
+   do i = 1, n                                                              ! Calculate the factorial of n
       result = result * i
    end do
 
