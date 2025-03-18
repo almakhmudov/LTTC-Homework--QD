@@ -68,3 +68,6 @@ convert -set dispose previous -delay 20 psi*.ps harmonic_XXXXX.gif
 
 > [!IMPORTANT]
 > This program works with input files named `wavepacket` and `potential` exclusively, otherwise it won't produce any results.
+
+## Acknowledgments
+This project is based upon data and instructions provided by Arjan Berger.
